@@ -38,6 +38,14 @@ app.post('/api/users', async (req, res) => {
       res.status(500).json({ error: "Server error",details: error.message });
   }
 });
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await User.find({}, 'username _id'); 
+    res.json(users); 
+  } catch (error) {
+    res.status(500).json({ error: "Server error", details: error.message });
+  }
+});
 app.post('/api/users/:_id/exercises', async (req, res) => {
   try {
      const { description, duration, date } = req.body;
